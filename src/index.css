@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+input {
+  border: 1px solid silver;
+  width: 150px;
+  height: 18px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.tableSection {
+  margin: 20px;
+}
+
+.formSection {
+  margin: 100px 0;
+}
