@@ -5,7 +5,8 @@ const search = (state = [], action) => {
 				...state,
 				{
 					title: action.title,
-					description: action.description
+					description: action.description,
+					key: action.key
 				}
 			];
 		default:

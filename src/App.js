@@ -12,7 +12,9 @@ import { bindActionCreators }  from "redux";
 import './App.css';
 import { connect } from 'react-redux'
 import { addSearch } from './actions/search'
+import PropTypes from 'prop-types';
 
+// ---- Mapping of state to props and dispatch to props  ----- //
 const mapStateToProps = (state) => ({
 	search: state
 });
@@ -22,14 +24,29 @@ function mapDispatchToProps (dispatch) {
 		addSearch: addSearch
 	}, dispatch);
 }
+// ---- END Mapping of state to props and dispatch to props  ----- //
 
 class App extends Component {
+	static propTypes = {
+		/**
+		 * A redux prop that is an array of movie data.
+		 * Movie data is an object with the format {title: "title", description: "description", key:"key"}
+		 */
+		search: PropTypes.array,
+
+		/**
+		 * The redux store that is passed in so we can access the dispatch functionality.
+		 */
+		store: PropTypes.object
+	};
+	// ---- On search method that is called when the form is submitted. Calls the getMovieData method  ----- //
   onSearch(e) {
 	  e.preventDefault();
 	  const text = this.refs.text.value;
     this.getMovieData.call(this,text);
   }
 
+	// ---- Ajax call to get movie data. Dispatched a redux action  ----- //
   getMovieData(search) {
 	  fetch("http://www.omdbapi.com/?apikey=b3b7cc78&t="+search)
 			  .then(res => res.json())
@@ -46,11 +63,13 @@ class App extends Component {
 					  }
 			  )
   }
+
+	// ---- Maps data in redux search prop to create the title and descriptions of the movies searched  ----- //
   createSearches(arr) {
   	if(Array.isArray(arr)) {
   		return arr.map(function(v){
   			return (
-					  <tr>
+					  <tr key={v.key}>
 						  <td>{v.title}</td>
 						  <td>{v.description}</td>
 					  </tr>
